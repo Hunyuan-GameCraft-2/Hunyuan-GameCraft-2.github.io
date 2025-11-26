@@ -105,21 +105,11 @@
       <section id="abstract" class="section">
         <div class="section__header">
           <p class="eyebrow">Abstract</p>
-          <h2>Introduction & Abstract</h2>
+          <h2>Abstract & Key Contributions</h2>
         </div>
-        <div class="abstract-grid">
+        <div class="abstract-layout">
           <article class="abstract-card">
-            <h3>Overview Abstract</h3>
-            <p>
-              Generative world models are rapidly evolving from static scene synthesis toward dynamic and interactive game environments. Existing approaches, however, still struggle with rigid action templates and costly annotations, limiting their coverage of diverse player interactions. We therefore present
-              <strong>Hunyuan-GameCraft-2</strong>, a paradigm centered on instruction-driven interaction where natural language prompts, keyboard, and mouse signals jointly control generated videos.
-            </p>
-            <p>
-              We formally define Interactive Video Data and construct an automated pipeline that converts massive text–video pairs into causally aligned interactive datasets. Built on a 14B image-to-video MoE foundation, our text-driven interaction injection mechanism provides fine control over camera motion, character behaviors, and environment dynamics, while the InterBench benchmark evaluates interaction fidelity. Experiments show that the model produces long-horizon, causally grounded videos responding reliably to commands such as “open the door,” “draw a torch,” and “trigger an explosion.”
-            </p>
-          </article>
-          <article class="abstract-card">
-            <h3>English Abstract</h3>
+            <h3>Abstract</h3>
             <p>
               Recent advances in generative world models have enabled remarkable progress in creating open-ended game environments, evolving from static scene synthesis toward dynamic, interactive simulation. However, current approaches remain limited by rigid action schemas and high annotation costs, restricting their ability to model diverse in-game interactions and player-driven dynamics.
             </p>
@@ -127,44 +117,32 @@
               To address these challenges, we introduce <strong>Hunyuan-GameCraft-2</strong>, a new paradigm of instruction-driven interaction for generative game world modeling. Instead of relying on fixed keyboard inputs, our model allows users to control game video contents through natural language prompts, keyboard, or mouse signals, enabling flexible and semantically rich interaction within generated worlds.
             </p>
             <p>
-              We formally define the concept of Interactive Video Data and develop an automated pipeline that converts large-scale, unstructured text–video pairs into causally aligned interactive datasets. Built upon a 14B image-to-video Mixture-of-Experts (MoE) foundation model, our model incorporates a text-driven interaction injection mechanism for fine-grained control over camera motion, character behavior, and environment dynamics. We introduce an interaction-focused benchmark, InterBench to evaluate interaction performance comprehensively.
+              We formally define the concept of Interactive Video Data and develop an automated pipeline that converts large-scale, unstructured text–video pairs into causally aligned interactive datasets. Built upon a 14B image-to-video Mixture-of-Experts (MoE) foundation model, our model incorporates a text-driven interaction injection mechanism for fine-grained control over camera motion, character behavior, and environment dynamics.
             </p>
             <p>
               Extensive experiments demonstrate that our model generates long-horizon, temporally coherent, and causally grounded interactive game videos that faithfully respond to diverse user instructions such as “open the door,” “draw a torch,” or “trigger an explosion.”
             </p>
           </article>
-        </div>
-      </section>
-
-      <section class="section light">
-        <div class="section__header">
-          <p class="eyebrow">Highlights</p>
-          <h2>Key Contributions</h2>
-        </div>
-        <div class="card-grid">
-          <article class="card">
-            <h3>Instruction-Driven Interaction</h3>
-            <p>
-              Multi-modal control channels spanning language, keyboard, and mouse signals for direct semantic mapping to in-game behaviors.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Interactive Video Data</h3>
-            <p>
-              Automated pipeline that extracts causally aligned interaction segments from large-scale text–video pairs, reducing annotation cost.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Fine-Grained Control</h3>
-            <p>
-              Interaction injection module on top of a 14B MoE video generator to separately control camera motion, character actions, and environment dynamics.
-            </p>
-          </article>
-          <article class="card">
-            <h3>InterBench Benchmark</h3>
-            <p>
-              Dedicated benchmark covering action consistency, response latency, scene comprehension, and causal alignment.
-            </p>
+          <article class="contrib-card">
+            <h3>Key Contributions</h3>
+            <div class="contrib-list">
+              <div class="contrib-item">
+                <h4>Instruction-Driven Interaction</h4>
+                <p>Multi-modal control channels spanning language, keyboard, and mouse signals for direct semantic mapping to in-game behaviors.</p>
+              </div>
+              <div class="contrib-item">
+                <h4>Interactive Video Data</h4>
+                <p>Automated pipeline that extracts causally aligned interaction segments from large-scale text–video pairs, reducing annotation cost.</p>
+              </div>
+              <div class="contrib-item">
+                <h4>Fine-Grained Control</h4>
+                <p>Interaction injection module on top of a 14B MoE video generator to separately control camera motion, character actions, and environment dynamics.</p>
+              </div>
+              <div class="contrib-item">
+                <h4>InterBench Benchmark</h4>
+                <p>Dedicated benchmark covering action consistency, response latency, scene comprehension, and causal alignment.</p>
+              </div>
+            </div>
           </article>
         </div>
       </section>
