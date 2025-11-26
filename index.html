@@ -122,6 +122,18 @@
         </div>
       </section>
 
+      <section id="gallery" class="section gallery-section">
+        <div class="section__header">
+          <p class="eyebrow">Gallery</p>
+          <h2>Action Video Gallery</h2>
+          <p class="gallery-desc">
+            Instruction-following samples grouped by action type. Five clips are shown at a time and advance automatically after
+            playback completes.
+          </p>
+        </div>
+        <div id="galleryRow" class="gallery-row" aria-live="polite"></div>
+      </section>
+
       <section id="abstract" class="section">
         <div class="section__header">
           <p class="eyebrow">Abstract</p>
@@ -269,6 +281,96 @@
       teaserButtons.forEach((button) => {
         button.addEventListener("click", () => setTeaserSource(button));
       });
+
+      const galleryData = [
+        { title: "Light a torch", src: "asserts/videos/samples/torch/0001.mp4" },
+        { title: "Summon snowfall", src: "asserts/videos/samples/snow/0003.mp4" },
+        { title: "Call rainfall", src: "asserts/videos/samples/rain/0005.mp4" },
+        { title: "Take out a phone", src: "asserts/videos/samples/phone/0001.mp4" },
+        { title: "Open the door", src: "asserts/videos/samples/opendoor/image_0185.mp4" },
+        { title: "Appear a human", src: "asserts/videos/samples/man/0001.mp4" },
+        { title: "Lightning strike", src: "asserts/videos/samples/lightning/0000.mp4" },
+        { title: "Draw a knife", src: "asserts/videos/samples/knife/0000.mp4" },
+        { title: "Hold a gun and fire", src: "asserts/videos/samples/gunfire/0000.mp4" },
+        { title: "Aim with a gun", src: "asserts/videos/samples/gun/0002.mp4" },
+        { title: "Trigger an explosion", src: "asserts/videos/samples/explosion/0004.mp4" },
+        { title: "Appear a yellow sport car", src: "asserts/videos/samples/car/0001.mp4" },
+        { title: "Summon a wild animal", src: "asserts/videos/samples/animal/0019.mp4" },
+      ];
+
+      const galleryRow = document.getElementById("galleryRow");
+      const GALLERY_GROUP_SIZE = 5;
+      const galleryGroupTotal = Math.max(1, Math.ceil(galleryData.length / GALLERY_GROUP_SIZE));
+      let galleryGroupIndex = 0;
+      let galleryFinishedCount = 0;
+      let galleryCurrentTarget = 0;
+      let galleryTimer;
+
+      function renderGalleryGroup(index) {
+        if (!galleryRow) return;
+        const start = index * GALLERY_GROUP_SIZE;
+        const slice = galleryData.slice(start, start + GALLERY_GROUP_SIZE);
+        if (slice.length === 0) {
+          galleryGroupIndex = 0;
+          return renderGalleryGroup(0);
+        }
+
+        galleryRow.innerHTML = "";
+        galleryFinishedCount = 0;
+        galleryCurrentTarget = slice.length;
+
+        slice.forEach((item) => {
+          const card = document.createElement("article");
+          card.className = "gallery-card";
+
+          const title = document.createElement("h4");
+          title.textContent = item.title;
+          card.appendChild(title);
+
+          const video = document.createElement("video");
+          video.src = item.src;
+          video.muted = true;
+          video.autoplay = true;
+          video.playsInline = true;
+          video.preload = "metadata";
+          video.controls = true;
+          video.addEventListener(
+            "ended",
+            () => {
+              galleryFinishedCount += 1;
+              if (galleryFinishedCount >= galleryCurrentTarget) {
+                advanceGalleryGroup();
+              }
+            },
+            { once: true }
+          );
+          video.addEventListener("loadeddata", () => {
+            video.play().catch(() => {});
+          });
+
+          card.appendChild(video);
+          galleryRow.appendChild(card);
+        });
+
+        scheduleGalleryAdvance();
+      }
+
+      function advanceGalleryGroup() {
+        clearTimeout(galleryTimer);
+        galleryGroupIndex = (galleryGroupIndex + 1) % galleryGroupTotal;
+        renderGalleryGroup(galleryGroupIndex);
+      }
+
+      function scheduleGalleryAdvance() {
+        clearTimeout(galleryTimer);
+        galleryTimer = setTimeout(() => {
+          advanceGalleryGroup();
+        }, 20000);
+      }
+
+      if (galleryRow) {
+        renderGalleryGroup(galleryGroupIndex);
+      }
     </script>
   </body>
 </html>
