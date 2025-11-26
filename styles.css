@@ -164,6 +164,7 @@ h3 {
   margin: 0 auto;
   max-width: 540px;
   color: var(--muted);
+  padding-top: 12px;
 }
 
 .video-gallery .section__header {
@@ -214,7 +215,7 @@ h3 {
 
 .gallery-action-row__videos {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -242,7 +243,7 @@ h3 {
 
 .teaser-ring {
   position: relative;
-  margin: 64px auto 0;
+  margin: 96px auto 0;
   width: min(98vw, 1120px);
   aspect-ratio: 1;
   display: flex;
