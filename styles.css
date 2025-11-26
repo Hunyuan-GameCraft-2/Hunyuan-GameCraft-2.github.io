@@ -152,6 +152,19 @@ h3 {
   color: var(--muted);
 }
 
+.abstract-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.abstract-card {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  background: rgba(5, 6, 10, 0.45);
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
