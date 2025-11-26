@@ -156,6 +156,10 @@ h3 {
   text-align: center;
 }
 
+.teaser-section {
+  margin-top: 48px;
+}
+
 .teaser-desc {
   margin: 0 auto;
   max-width: 540px;
@@ -359,10 +363,8 @@ h3 {
 }
 
 .abstract-card {
-  flex: 1.2;
-}
-
-.abstract-card {
+  flex: 1 1 55%;
+  max-width: 640px;
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 28px;
@@ -374,7 +376,7 @@ h3 {
 }
 
 .contrib-card {
-  flex: 0.8;
+  flex: 1 1 45%;
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 28px;
