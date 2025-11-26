@@ -196,26 +196,58 @@
         </div>
       </section>
 
-      <section class="section light">
+      <section class="section light benchmark-section">
         <div class="section__header">
           <p class="eyebrow">Benchmark</p>
-          <h2>InterBench Evaluation</h2>
+          <h2>InterBench & Quality Metrics</h2>
         </div>
-        <div class="benchmark">
-          <div>
-            <h3>Metric Coverage</h3>
+        <div class="benchmark-grid">
+          <article class="benchmark-detail">
+            <h3>General Video Quality</h3>
+            <p>
+              We adopt a suite of metrics covering visual fidelity, temporal stability, and motion realism. Fréchet Video Distance
+              (FVD) summarizes spatial + temporal fidelity, while Image Quality & Aesthetic scores capture perceptual sharpness.
+              Temporal consistency and Dynamic Average (adapted from VBench) quantify motion smoothness and magnitude.
+            </p>
+          </article>
+          <article class="benchmark-detail">
+            <h3>Interactive Trajectory Control</h3>
+            <p>
+              Camera-following accuracy is measured with Relative Pose Error (<strong>RPE trans</strong> / <strong>RPE rot</strong>).
+              We align predicted and ground-truth trajectories using Sim3 Umeyama calibration so that RPE reflects local motion
+              fidelity and frame-to-frame control precision.
+            </p>
+          </article>
+          <article class="benchmark-detail">
+            <h3>InterBench (Action-Level)</h3>
+            <p>
+              Our interaction benchmark supplements generic metrics with six dimensions evaluated via a VLM-based judge:
+            </p>
             <ul>
-              <li>Interaction response: latency and accuracy of visual feedback</li>
-              <li>Action consistency: stability of target behaviors</li>
-              <li>Spatiotemporal coherence: long-horizon perceptual consistency</li>
-              <li>Causal alignment: logical faithfulness to user instructions</li>
+              <li>Trigger rate & prompt alignment (static + dynamic)</li>
+              <li>Interaction fluency & spatial scope accuracy</li>
+              <li>End-state consistency & object physics correctness</li>
             </ul>
+            <p>
+              Scores are computed per category (Environment, Actor Actions, Entity & Object) and aggregated into the overall InterBench
+              score reported in Table&nbsp;1.
+            </p>
+          </article>
+        </div>
+        <div class="benchmark-figure">
+          <div class="benchmark-figure__media">
+            <object
+              data="asserts/pdf/overall_comparison.pdf"
+              type="application/pdf"
+              aria-label="Environmental interaction comparison PDF"
+            >
+              <p>Your browser cannot display PDFs. <a href="asserts/pdf/overall_comparison.pdf" target="_blank">Open the file</a>.</p>
+            </object>
           </div>
-          <div class="benchmark-card">
-            <p class="metric-label">Average Response Score</p>
-            <p class="metric-value">91.3</p>
-            <p class="metric-desc">Outperforms leading baselines across multitask prompts</p>
-          </div>
+          <p class="benchmark-figure__caption">
+            Figure: qualitative comparison of environmental interactions with Wan2.2, LongCatVideo, and HunyuanVideo (see paper for
+            additional categories).
+          </p>
         </div>
       </section>
 
@@ -223,9 +255,6 @@
         <div class="section__header">
           <p class="eyebrow">Gallery</p>
           <h2>Action Video Gallery</h2>
-          <p class="gallery-desc">
-            每一行对应一个动作类别，来自 <code>asserts/videos/samples/</code> 中的文件夹。默认展示 5 段视频，播放完成后会自动轮播下一批示例。
-          </p>
         </div>
         <div id="videoGalleryRoot" class="video-gallery__root"></div>
       </section>
