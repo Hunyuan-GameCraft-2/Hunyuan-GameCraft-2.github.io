@@ -164,19 +164,20 @@ h3 {
 
 .teaser-ring {
   position: relative;
-  margin: 56px auto 0;
-  width: min(96vw, 880px);
+  margin: 64px auto 0;
+  width: min(98vw, 1040px);
   aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 56px;
+  --teaser-orbit: clamp(260px, 40vw, 440px);
 }
 
 .teaser-ring::before {
   content: "";
   position: absolute;
-  inset: 24px;
+  inset: 48px;
   border-radius: 50%;
   border: 1px dashed rgba(255, 255, 255, 0.18);
   pointer-events: none;
@@ -185,9 +186,9 @@ h3 {
 .teaser-stage {
   position: relative;
   z-index: 2;
-  width: 82%;
+  width: 88%;
   aspect-ratio: 16 / 9;
-  border-radius: 32px;
+  border-radius: 36px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
@@ -202,11 +203,11 @@ h3 {
 }
 
 .teaser-button {
-  --orbit: clamp(180px, 32vw, 320px);
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(-1 * var(--orbit)))
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * (var(--teaser-orbit) + 48px)))
     rotate(calc(-1 * var(--angle)));
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -234,8 +235,42 @@ h3 {
   background: var(--gradient);
   color: #05060a;
   border-color: transparent;
-  transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(-1 * var(--orbit)))
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * (var(--teaser-orbit) + 48px)))
     rotate(calc(-1 * var(--angle))) scale(1.08);
+}
+
+.group-weather {
+  background: rgba(108, 173, 255, 0.18);
+  border-color: rgba(124, 224, 249, 0.5);
+}
+
+.group-entity {
+  background: rgba(255, 196, 124, 0.18);
+  border-color: rgba(255, 196, 124, 0.45);
+}
+
+.group-action {
+  background: rgba(255, 124, 194, 0.18);
+  border-color: rgba(255, 124, 194, 0.45);
+}
+
+.group-weather:hover,
+.group-weather:focus-visible {
+  color: var(--accent);
+  border-color: rgba(124, 224, 249, 0.9);
+}
+
+.group-entity:hover,
+.group-entity:focus-visible {
+  color: #ffc47c;
+  border-color: rgba(255, 196, 124, 0.9);
+}
+
+.group-action:hover,
+.group-action:focus-visible {
+  color: #ff7cc2;
+  border-color: rgba(255, 124, 194, 0.9);
 }
 
 .abstract-layout {
@@ -401,6 +436,7 @@ h3 {
     flex-direction: column;
     gap: 18px;
     padding: 0;
+    --teaser-orbit: 0;
   }
 
   .teaser-stage {
@@ -416,7 +452,6 @@ h3 {
     transform: none;
     width: 100%;
     text-align: center;
-    --orbit: 0;
   }
 
   .abstract-layout {
