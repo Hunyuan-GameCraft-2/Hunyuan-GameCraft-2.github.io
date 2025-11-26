@@ -42,6 +42,66 @@
     </header>
 
     <main>
+      <section id="teaser" class="section light teaser-section">
+        <div class="section__header">
+          <p class="eyebrow">Teaser</p>
+          <h2>Instruction-to-Action Playground</h2>
+          <p class="teaser-desc">
+            Tap any scenario capsule to swap the teaser playback. Each button represents a different interaction rendered by
+            Hunyuan-GameCraft-2.
+          </p>
+        </div>
+        <div class="teaser-ring" aria-live="polite">
+          <div class="teaser-stage">
+            <video
+              id="teaserVideo"
+              class="teaser-video"
+              controls
+              playsinline
+              poster="asserts/images/teaser.png"
+              preload="metadata"
+            >
+              <source src="asserts/videos/teaser/snowfall.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <button
+            class="teaser-button active"
+            data-src="asserts/videos/teaser/snowfall.mp4"
+            style="--angle: 0deg"
+          >
+            Snowfall
+          </button>
+          <button class="teaser-button" data-src="asserts/videos/teaser/rainfall.mp4" style="--angle: 36deg">
+            Rainfall
+          </button>
+          <button class="teaser-button" data-src="asserts/videos/teaser/lightning.mp4" style="--angle: 72deg">
+            Lightning
+          </button>
+          <button class="teaser-button" data-src="asserts/videos/teaser/explosion.mp4" style="--angle: 108deg">
+            Explosion
+          </button>
+          <button class="teaser-button" data-src="asserts/videos/teaser/gun.mp4" style="--angle: 144deg">
+            Gunfire
+          </button>
+          <button class="teaser-button" data-src="asserts/videos/teaser/knife.mp4" style="--angle: 180deg">
+            Blade
+          </button>
+          <button class="teaser-button" data-src="asserts/videos/teaser/man.mp4" style="--angle: 216deg">
+            Wanderer
+          </button>
+          <button class="teaser-button" data-src="asserts/videos/teaser/phone.mp4" style="--angle: 252deg">
+            Signal
+          </button>
+          <button class="teaser-button" data-src="asserts/videos/teaser/deer.mp4" style="--angle: 288deg">
+            Forest
+          </button>
+          <button class="teaser-button" data-src="asserts/videos/teaser/car.mp4" style="--angle: 324deg">
+            Pursuit
+          </button>
+        </div>
+      </section>
+
       <section id="abstract" class="section">
         <div class="section__header">
           <p class="eyebrow">Abstract</p>
@@ -212,6 +272,31 @@
     <footer class="footer">
       <p>© 2025 Hunyuan-GameCraft-2 Team. All rights reserved.</p>
     </footer>
+    <script>
+      const teaserVideo = document.getElementById("teaserVideo");
+      const teaserButtons = document.querySelectorAll(".teaser-button");
+
+      function setTeaserSource(button) {
+        const src = button.dataset.src;
+        if (!src) return;
+        teaserButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+        const shouldAutoplay = !teaserVideo.paused && !teaserVideo.ended;
+        const currentTime = teaserVideo.currentTime;
+        if (teaserVideo.getAttribute("src") !== src) {
+          teaserVideo.pause();
+          teaserVideo.setAttribute("src", src);
+          teaserVideo.load();
+        }
+        if (shouldAutoplay || currentTime === 0) {
+          teaserVideo.play().catch(() => {});
+        }
+      }
+
+      teaserButtons.forEach((button) => {
+        button.addEventListener("click", () => setTeaserSource(button));
+      });
+    </script>
   </body>
 </html>
 
