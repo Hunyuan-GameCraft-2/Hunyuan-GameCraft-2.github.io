@@ -201,38 +201,166 @@
           <p class="eyebrow">Benchmark</p>
           <h2>InterBench & Quality Metrics</h2>
         </div>
-        <div class="benchmark-grid">
-          <article class="benchmark-detail">
-            <h3>General Video Quality</h3>
-            <p>
-              We adopt a suite of metrics covering visual fidelity, temporal stability, and motion realism. Fréchet Video Distance
-              (FVD) summarizes spatial + temporal fidelity, while Image Quality & Aesthetic scores capture perceptual sharpness.
-              Temporal consistency and Dynamic Average (adapted from VBench) quantify motion smoothness and magnitude.
-            </p>
+        <p class="benchmark-intro">
+          Generic video fidelity is reported with FVD, IQA, Aesthetic, Temporal Consistency, Dynamic Average, plus Sim3-aligned
+          Relative Pose Error for camera control. To capture interactive fidelity, InterBench decomposes action execution into six
+          interpretable dimensions scored by a VLM judge.
+        </p>
+        <div class="interbench-dimensions">
+          <article class="dimension-card">
+            <h3>1. Interaction Trigger Rate</h3>
+            <p>Binary check that the requested action is initiated; failures zero out the remaining dimensions.</p>
           </article>
-          <article class="benchmark-detail">
-            <h3>Interactive Trajectory Control</h3>
-            <p>
-              Camera-following accuracy is measured with Relative Pose Error (<strong>RPE trans</strong> / <strong>RPE rot</strong>).
-              We align predicted and ground-truth trajectories using Sim3 Umeyama calibration so that RPE reflects local motion
-              fidelity and frame-to-frame control precision.
-            </p>
+          <article class="dimension-card">
+            <h3>2. Prompt–Video Alignment</h3>
+            <p>Semantic fidelity w.r.t. both base prompt and action command (static + dynamic alignment).</p>
           </article>
-          <article class="benchmark-detail">
-            <h3>InterBench (Action-Level)</h3>
-            <p>
-              Our interaction benchmark supplements generic metrics with six dimensions evaluated via a VLM-based judge:
-            </p>
-            <ul>
-              <li>Trigger rate & prompt alignment (static + dynamic)</li>
-              <li>Interaction fluency & spatial scope accuracy</li>
-              <li>End-state consistency & object physics correctness</li>
-            </ul>
-            <p>
-              Scores are computed per category (Environment, Actor Actions, Entity & Object) and aggregated into the overall InterBench
-              score reported in Table&nbsp;1.
-            </p>
+          <article class="dimension-card">
+            <h3>3. Interaction Fluency</h3>
+            <p>Temporal smoothness of the interaction, penalizing flicker, teleportation, or structural tearing.</p>
           </article>
+          <article class="dimension-card">
+            <h3>4. Interaction Scope Accuracy</h3>
+            <p>Checks whether spatial influence matches expectations (global vs. local propagation).</p>
+          </article>
+          <article class="dimension-card">
+            <h3>5. End-State Consistency</h3>
+            <p>Assesses if the action converges to a stable, correct final state that persists until the clip ends.</p>
+          </article>
+          <article class="dimension-card">
+            <h3>6. Object Physics Correctness</h3>
+            <p>Evaluates plausibility of rigid bodies, contact dynamics, and motion kinematics during interaction.</p>
+          </article>
+        </div>
+        <div class="interbench-table">
+          <table>
+            <caption>Table: InterBench quantitative scores across the three interaction categories.</caption>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Method</th>
+                <th>Trigger</th>
+                <th>Align</th>
+                <th>Fluency</th>
+                <th>Scope</th>
+                <th>EndState</th>
+                <th>Physics</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="4">Environmental</td>
+                <td>Wan2.2 A14B</td>
+                <td>0.799</td>
+                <td>3.511</td>
+                <td>3.579</td>
+                <td>3.722</td>
+                <td>3.951</td>
+                <td>3.008</td>
+              </tr>
+              <tr>
+                <td>LongCat-Video</td>
+                <td>0.897</td>
+                <td>3.963</td>
+                <td>3.777</td>
+                <td>4.188</td>
+                <td>4.377</td>
+                <td>3.210</td>
+              </tr>
+              <tr>
+                <td>HunyuanVideo</td>
+                <td>0.490</td>
+                <td>1.950</td>
+                <td>1.940</td>
+                <td>2.065</td>
+                <td>2.308</td>
+                <td>1.670</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>GameCraft-2</td>
+                <td>0.962</td>
+                <td>4.342</td>
+                <td>4.247</td>
+                <td>4.578</td>
+                <td>4.688</td>
+                <td>3.893</td>
+              </tr>
+              <tr>
+                <td rowspan="4">Actor Actions</td>
+                <td>Wan2.2 A14B</td>
+                <td>0.836</td>
+                <td>3.490</td>
+                <td>3.488</td>
+                <td>4.036</td>
+                <td>4.054</td>
+                <td>3.175</td>
+              </tr>
+              <tr>
+                <td>LongCat-Video</td>
+                <td>0.806</td>
+                <td>3.089</td>
+                <td>3.005</td>
+                <td>3.832</td>
+                <td>3.771</td>
+                <td>2.839</td>
+              </tr>
+              <tr>
+                <td>HunyuanVideo</td>
+                <td>0.587</td>
+                <td>2.147</td>
+                <td>2.202</td>
+                <td>2.717</td>
+                <td>2.748</td>
+                <td>1.931</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>GameCraft-2</td>
+                <td>0.983</td>
+                <td>4.087</td>
+                <td>4.191</td>
+                <td>4.576</td>
+                <td>4.686</td>
+                <td>3.828</td>
+              </tr>
+              <tr>
+                <td rowspan="4">Entity &amp; Object</td>
+                <td>Wan2.2 A14B</td>
+                <td>0.874</td>
+                <td>3.943</td>
+                <td>3.545</td>
+                <td>4.281</td>
+                <td>4.265</td>
+                <td>3.054</td>
+              </tr>
+              <tr>
+                <td>LongCat-Video</td>
+                <td>0.712</td>
+                <td>3.050</td>
+                <td>2.758</td>
+                <td>3.340</td>
+                <td>3.482</td>
+                <td>2.352</td>
+              </tr>
+              <tr>
+                <td>HunyuanVideo</td>
+                <td>0.607</td>
+                <td>2.037</td>
+                <td>1.870</td>
+                <td>2.736</td>
+                <td>2.734</td>
+                <td>1.462</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>GameCraft-2</td>
+                <td>0.944</td>
+                <td>4.292</td>
+                <td>3.978</td>
+                <td>4.410</td>
+                <td>4.514</td>
+                <td>3.578</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="benchmark-figure">
           <div class="benchmark-figure__media">
