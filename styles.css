@@ -364,8 +364,7 @@ h3 {
 }
 
 .abstract-card {
-  flex: 1 1 55%;
-  max-width: 640px;
+  flex: 1 1 50%;
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 28px;
@@ -377,7 +376,7 @@ h3 {
 }
 
 .contrib-card {
-  flex: 1 1 45%;
+  flex: 1 1 50%;
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 28px;
