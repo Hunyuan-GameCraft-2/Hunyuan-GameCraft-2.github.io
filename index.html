@@ -261,7 +261,7 @@
       });
 
       const videoGalleryRoot = document.getElementById("videoGalleryRoot");
-      const ACTION_VISIBLE_COUNT = 5;
+      const ACTION_VISIBLE_COUNT = 4;
       const ACTION_ROTATE_MS = 20000;
       const galleryRowState = new Map();
 
@@ -270,12 +270,6 @@
           title: "Environment Change",
           description: "Weather, lighting, and large-scale environmental dynamics.",
           rows: [
-            {
-              key: "torch",
-              label: "Light a torch",
-              folder: "torch",
-              files: ["0001.mp4", "0002.mp4", "0008.mp4", "0013.mp4", "0019.mp4", "0025.mp4", "0031.mp4", "0035.mp4", "0044.mp4", "0047.mp4"],
-            },
             {
               key: "snow",
               label: "Summon snowfall",
@@ -307,6 +301,12 @@
           description: "Character-driven interactions manipulating tools, weapons, or props.",
           rows: [
             {
+              key: "torch",
+              label: "Light a torch",
+              folder: "torch",
+              files: ["0001.mp4", "0002.mp4", "0008.mp4", "0013.mp4", "0019.mp4", "0025.mp4", "0031.mp4", "0035.mp4", "0044.mp4", "0047.mp4"],
+            },
+            {
               key: "opendoor",
               label: "Open the door",
               folder: "opendoor",
@@ -326,7 +326,7 @@
             },
             {
               key: "gun",
-              label: "Aim with a gun",
+              label: "Take out a gun",
               folder: "gun",
               files: ["0002.mp4", "0010.mp4", "0014.mp4", "0017.mp4", "0021.mp4", "0022.mp4", "0023.mp4", "0025.mp4", "0035.mp4", "0037.mp4"],
             },
@@ -350,13 +350,13 @@
             },
             {
               key: "car",
-              label: "Appear a yellow sport car",
+              label: "Appear a car",
               folder: "car",
               files: ["0001.mp4", "0007.mp4", "0012.mp4", "0041.mp4", "0047.mp4", "0054.mp4", "0064.mp4", "0073.mp4", "0075.mp4", "0076.mp4"],
             },
             {
               key: "animal",
-              label: "Summon a wild animal",
+              label: "Appear a wild animal",
               folder: "animal",
               files: ["0019.mp4", "0028.mp4", "0031.mp4", "0049.mp4", "0050.mp4", "0053.mp4", "0054.mp4", "0058.mp4", "0062.mp4", "0063.mp4"],
             },
