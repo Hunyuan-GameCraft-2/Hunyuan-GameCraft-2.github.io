@@ -231,25 +231,15 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section video-gallery" id="results">
         <div class="section__header">
           <p class="eyebrow">Results</p>
-          <h2>Interaction Examples</h2>
+          <h2>Instruction-to-Action Video Gallery</h2>
+          <p class="gallery-desc">
+            每一行对应一个动作类别，来自 <code>asserts/videos/samples/</code> 中的文件夹。默认展示 5 段视频，播放完成后会自动轮播下一批示例。
+          </p>
         </div>
-        <div class="results-grid">
-          <figure class="result-card">
-            <div class="result-thumb">Open the door</div>
-            <figcaption>Character executes a natural-language door command with automatic camera push-in.</figcaption>
-          </figure>
-          <figure class="result-card">
-            <div class="result-thumb">Draw a torch</div>
-            <figcaption>Gesture-controlled torch creation that relights the scene with dynamic illumination.</figcaption>
-          </figure>
-          <figure class="result-card">
-            <div class="result-thumb">Trigger an explosion</div>
-            <figcaption>Combined keyboard–mouse input triggers an explosion with particle debris.</figcaption>
-          </figure>
-        </div>
+        <div id="videoGalleryRoot" class="video-gallery__root"></div>
       </section>
 
     </main>
@@ -282,95 +272,213 @@
         button.addEventListener("click", () => setTeaserSource(button));
       });
 
-      const galleryData = [
-        { title: "Light a torch", src: "asserts/videos/samples/torch/0001.mp4" },
-        { title: "Summon snowfall", src: "asserts/videos/samples/snow/0003.mp4" },
-        { title: "Call rainfall", src: "asserts/videos/samples/rain/0005.mp4" },
-        { title: "Take out a phone", src: "asserts/videos/samples/phone/0001.mp4" },
-        { title: "Open the door", src: "asserts/videos/samples/opendoor/image_0185.mp4" },
-        { title: "Appear a human", src: "asserts/videos/samples/man/0001.mp4" },
-        { title: "Lightning strike", src: "asserts/videos/samples/lightning/0000.mp4" },
-        { title: "Draw a knife", src: "asserts/videos/samples/knife/0000.mp4" },
-        { title: "Hold a gun and fire", src: "asserts/videos/samples/gunfire/0000.mp4" },
-        { title: "Aim with a gun", src: "asserts/videos/samples/gun/0002.mp4" },
-        { title: "Trigger an explosion", src: "asserts/videos/samples/explosion/0004.mp4" },
-        { title: "Appear a yellow sport car", src: "asserts/videos/samples/car/0001.mp4" },
-        { title: "Summon a wild animal", src: "asserts/videos/samples/animal/0019.mp4" },
+      const videoGalleryRoot = document.getElementById("videoGalleryRoot");
+      const ACTION_VISIBLE_COUNT = 5;
+      const ACTION_ROTATE_MS = 20000;
+      const galleryRowState = new Map();
+
+      const videoGalleryData = [
+        {
+          title: "Environment Change",
+          description: "Weather, lighting, and large-scale environmental dynamics.",
+          rows: [
+            {
+              key: "torch",
+              label: "Light a torch",
+              folder: "torch",
+              files: ["0001.mp4", "0002.mp4", "0008.mp4", "0013.mp4", "0019.mp4", "0025.mp4", "0031.mp4", "0035.mp4", "0044.mp4", "0047.mp4"],
+            },
+            {
+              key: "snow",
+              label: "Summon snowfall",
+              folder: "snow",
+              files: ["0003.mp4", "0008.mp4", "0010.mp4", "0011.mp4", "0012.mp4", "0013.mp4", "0042.mp4", "0044.mp4", "0058.mp4", "0088.mp4"],
+            },
+            {
+              key: "rain",
+              label: "Call rainfall",
+              folder: "rain",
+              files: ["0005.mp4", "0013.mp4", "0042.mp4", "0046.mp4", "0055.mp4", "0058.mp4", "0059.mp4", "0065.mp4", "0066.mp4", "0097.mp4"],
+            },
+            {
+              key: "lightning",
+              label: "Lightning strike",
+              folder: "lightning",
+              files: ["0000.mp4", "0005.mp4", "0017.mp4", "0044.mp4", "0046.mp4", "0048.mp4", "0056.mp4", "0091.mp4", "0096.mp4"],
+            },
+            {
+              key: "explosion",
+              label: "Trigger an explosion",
+              folder: "explosion",
+              files: ["0004.mp4", "0013.mp4", "0016.mp4", "0037.mp4", "0048.mp4", "0053.mp4", "0055.mp4", "0065.mp4", "0091.mp4", "0097.mp4"],
+            },
+          ],
+        },
+        {
+          title: "Actor Actions",
+          description: "Character-driven interactions manipulating tools, weapons, or props.",
+          rows: [
+            {
+              key: "opendoor",
+              label: "Open the door",
+              folder: "opendoor",
+              files: ["image_0185.mp4", "image_0983.mp4", "image_3211.mp4", "image_3345.mp4"],
+            },
+            {
+              key: "knife",
+              label: "Draw a knife",
+              folder: "knife",
+              files: ["0000.mp4", "0004.mp4", "0008.mp4", "0009.mp4", "0010.mp4", "0014.mp4", "0018.mp4", "0028.mp4", "0034.mp4", "0036.mp4"],
+            },
+            {
+              key: "gunfire",
+              label: "Hold a gun and fire",
+              folder: "gunfire",
+              files: ["0000.mp4", "0003.mp4", "0005.mp4", "0011.mp4", "0016.mp4", "0018.mp4", "0020.mp4", "0033.mp4", "0038.mp4", "0045.mp4"],
+            },
+            {
+              key: "gun",
+              label: "Aim with a gun",
+              folder: "gun",
+              files: ["0002.mp4", "0010.mp4", "0014.mp4", "0017.mp4", "0021.mp4", "0022.mp4", "0023.mp4", "0025.mp4", "0035.mp4", "0037.mp4"],
+            },
+            {
+              key: "phone",
+              label: "Take out a phone",
+              folder: "phone",
+              files: ["0001.mp4", "0003.mp4", "0004.mp4", "0005.mp4", "0014.mp4", "0019.mp4", "0022.mp4", "0028.mp4", "0031.mp4", "0039.mp4"],
+            },
+          ],
+        },
+        {
+          title: "Entity & Object Appearances",
+          description: "Materializing controllable agents, characters, and objects.",
+          rows: [
+            {
+              key: "man",
+              label: "Appear a human",
+              folder: "man",
+              files: ["0001.mp4", "0003.mp4", "0011.mp4", "0012.mp4", "0019.mp4", "0023.mp4", "0027.mp4", "0041.mp4", "0042.mp4", "0043.mp4"],
+            },
+            {
+              key: "car",
+              label: "Appear a yellow sport car",
+              folder: "car",
+              files: ["0001.mp4", "0007.mp4", "0012.mp4", "0041.mp4", "0047.mp4", "0054.mp4", "0064.mp4", "0073.mp4", "0075.mp4", "0076.mp4"],
+            },
+            {
+              key: "animal",
+              label: "Summon a wild animal",
+              folder: "animal",
+              files: ["0019.mp4", "0028.mp4", "0031.mp4", "0049.mp4", "0050.mp4", "0053.mp4", "0054.mp4", "0058.mp4", "0062.mp4", "0063.mp4"],
+            },
+          ],
+        },
       ];
 
-      const galleryRow = document.getElementById("galleryRow");
-      const GALLERY_GROUP_SIZE = 5;
-      const galleryGroupTotal = Math.max(1, Math.ceil(galleryData.length / GALLERY_GROUP_SIZE));
-      let galleryGroupIndex = 0;
-      let galleryFinishedCount = 0;
-      let galleryCurrentTarget = 0;
-      let galleryTimer;
+      function mountVideoGallery() {
+        if (!videoGalleryRoot) return;
+        videoGalleryRoot.innerHTML = "";
+        videoGalleryData.forEach((category) => {
+          const categoryEl = document.createElement("section");
+          categoryEl.className = "gallery-category";
 
-      function renderGalleryGroup(index) {
-        if (!galleryRow) return;
-        const start = index * GALLERY_GROUP_SIZE;
-        const slice = galleryData.slice(start, start + GALLERY_GROUP_SIZE);
-        if (slice.length === 0) {
-          galleryGroupIndex = 0;
-          return renderGalleryGroup(0);
+          const headerEl = document.createElement("div");
+          headerEl.className = "gallery-category__header";
+          const titleEl = document.createElement("h3");
+          titleEl.textContent = category.title;
+          const descEl = document.createElement("p");
+          descEl.textContent = category.description;
+          headerEl.appendChild(titleEl);
+          headerEl.appendChild(descEl);
+          categoryEl.appendChild(headerEl);
+
+          category.rows.forEach((row) => {
+            const rowEl = document.createElement("div");
+            rowEl.className = "gallery-action-row";
+
+            const rowTitle = document.createElement("div");
+            rowTitle.className = "gallery-action-row__title";
+            const h4 = document.createElement("h4");
+            h4.textContent = row.label;
+            rowTitle.appendChild(h4);
+            rowEl.appendChild(rowTitle);
+
+            const videosWrapper = document.createElement("div");
+            videosWrapper.className = "gallery-action-row__videos";
+            rowEl.appendChild(videosWrapper);
+
+            categoryEl.appendChild(rowEl);
+            renderGalleryRow(row, videosWrapper);
+          });
+
+          videoGalleryRoot.appendChild(categoryEl);
+        });
+      }
+
+      function renderGalleryRow(rowConfig, wrapper) {
+        const files = rowConfig.files || [];
+        if (!files.length) {
+          wrapper.innerHTML = '<p class="gallery-empty">Samples coming soon.</p>';
+          return;
         }
 
-        galleryRow.innerHTML = "";
-        galleryFinishedCount = 0;
-        galleryCurrentTarget = slice.length;
+        const state = galleryRowState.get(rowConfig.key) || { pointer: 0, timer: null, instance: 0 };
+        state.instance += 1;
+        const instanceId = state.instance;
+        wrapper.innerHTML = "";
 
-        slice.forEach((item) => {
-          const card = document.createElement("article");
-          card.className = "gallery-card";
+        const visibleCount = Math.min(ACTION_VISIBLE_COUNT, files.length);
+        let completed = 0;
 
-          const title = document.createElement("h4");
-          title.textContent = item.title;
-          card.appendChild(title);
+        for (let i = 0; i < visibleCount; i += 1) {
+          const file = files[(state.pointer + i) % files.length];
+          const card = document.createElement("div");
+          card.className = "gallery-video-card";
 
           const video = document.createElement("video");
-          video.src = item.src;
+          video.src = `asserts/videos/samples/${rowConfig.folder}/${file}`;
           video.muted = true;
-          video.autoplay = true;
+          video.controls = true;
           video.playsInline = true;
           video.preload = "metadata";
-          video.controls = true;
+          video.autoplay = true;
+          video.addEventListener("loadeddata", () => {
+            video.play().catch(() => {});
+          });
           video.addEventListener(
             "ended",
             () => {
-              galleryFinishedCount += 1;
-              if (galleryFinishedCount >= galleryCurrentTarget) {
-                advanceGalleryGroup();
+              if (galleryRowState.get(rowConfig.key)?.instance !== instanceId) return;
+              completed += 1;
+              if (completed >= visibleCount) {
+                rotateRow();
               }
             },
             { once: true }
           );
-          video.addEventListener("loadeddata", () => {
-            video.play().catch(() => {});
-          });
 
           card.appendChild(video);
-          galleryRow.appendChild(card);
-        });
+          wrapper.appendChild(card);
+        }
 
-        scheduleGalleryAdvance();
+        function rotateRow() {
+          if (galleryRowState.get(rowConfig.key)?.instance !== instanceId) return;
+          clearTimeout(state.timer);
+          state.pointer = (state.pointer + ACTION_VISIBLE_COUNT) % files.length;
+          galleryRowState.set(rowConfig.key, state);
+          renderGalleryRow(rowConfig, wrapper);
+        }
+
+        clearTimeout(state.timer);
+        state.timer = setTimeout(() => {
+          rotateRow();
+        }, ACTION_ROTATE_MS);
+
+        galleryRowState.set(rowConfig.key, state);
       }
 
-      function advanceGalleryGroup() {
-        clearTimeout(galleryTimer);
-        galleryGroupIndex = (galleryGroupIndex + 1) % galleryGroupTotal;
-        renderGalleryGroup(galleryGroupIndex);
-      }
-
-      function scheduleGalleryAdvance() {
-        clearTimeout(galleryTimer);
-        galleryTimer = setTimeout(() => {
-          advanceGalleryGroup();
-        }, 20000);
-      }
-
-      if (galleryRow) {
-        renderGalleryGroup(galleryGroupIndex);
-      }
+      mountVideoGallery();
     </script>
   </body>
 </html>
