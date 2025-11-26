@@ -157,14 +157,14 @@ h3 {
 }
 
 .teaser-section {
-  margin-top: 48px;
+  margin-top: 32px;
 }
 
 .teaser-desc {
   margin: 0 auto;
   max-width: 540px;
   color: var(--muted);
-  padding-top: 12px;
+  padding-top: 4px;
 }
 
 .video-gallery .section__header {
@@ -222,14 +222,14 @@ h3 {
 .gallery-video-card {
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 12px;
+  padding: 16px;
   background: rgba(8, 10, 18, 0.65);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
 .gallery-video-card video {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: #000;
   aspect-ratio: 16 / 9;
@@ -243,7 +243,7 @@ h3 {
 
 .teaser-ring {
   position: relative;
-  margin: 96px auto 0;
+  margin: 76px auto 0;
   width: min(98vw, 1120px);
   aspect-ratio: 1;
   display: flex;
