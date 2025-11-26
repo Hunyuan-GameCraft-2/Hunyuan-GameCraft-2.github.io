@@ -162,16 +162,60 @@ h3 {
   color: var(--muted);
 }
 
+.gallery-section .section__header {
+  text-align: left;
+}
+
+.gallery-desc {
+  margin: 12px 0 0;
+  max-width: 640px;
+  color: var(--muted);
+}
+
+.gallery-row {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.gallery-card {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px;
+  background: rgba(5, 6, 10, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gallery-card h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+}
+
+.gallery-card video {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000;
+  aspect-ratio: 16 / 9;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
 .teaser-ring {
   position: relative;
   margin: 64px auto 0;
-  width: min(98vw, 1040px);
+  width: min(98vw, 1120px);
   aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 56px;
-  --teaser-orbit: clamp(260px, 40vw, 440px);
+  --teaser-orbit: clamp(340px, 48vw, 560px);
 }
 
 .teaser-ring::before {
@@ -226,8 +270,10 @@ h3 {
 
 .teaser-button:hover,
 .teaser-button:focus-visible {
-  border-color: var(--accent);
-  color: var(--accent);
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * (var(--teaser-orbit) + 48px)))
+    rotate(calc(-1 * var(--angle))) scale(1.1);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
   outline: none;
 }
 
@@ -259,18 +305,21 @@ h3 {
 .group-weather:focus-visible {
   color: var(--accent);
   border-color: rgba(124, 224, 249, 0.9);
+  background: rgba(108, 173, 255, 0.35);
 }
 
 .group-entity:hover,
 .group-entity:focus-visible {
   color: #ffc47c;
   border-color: rgba(255, 196, 124, 0.9);
+  background: rgba(255, 196, 124, 0.35);
 }
 
 .group-action:hover,
 .group-action:focus-visible {
   color: #ff7cc2;
   border-color: rgba(255, 124, 194, 0.9);
+  background: rgba(255, 124, 194, 0.35);
 }
 
 .abstract-layout {
@@ -456,6 +505,10 @@ h3 {
 
   .abstract-layout {
     flex-direction: column;
+  }
+
+  .gallery-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
