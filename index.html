@@ -18,7 +18,7 @@
         <p class="eyebrow">Generative Interactive Game World Modeling</p>
         <h1>Hunyuan-GameCraft-2</h1>
         <p class="subtitle">
-          Instruction-driven interactive video generation where language, keyboard, and mouse jointly steer synthetic worlds.
+          Instruction-driven interactive video generation where Text-Prompt, keyboard, and mouse jointly steer synthetic worlds.
         </p>
         <div class="cta-group">
           <a class="btn primary" href="#abstract">Paper</a>
@@ -32,7 +32,7 @@
         </div>
         <div class="stat-card">
           <span class="stat-label">Control Signals</span>
-          <span class="stat-value">Language + Keyboard + Mouse</span>
+          <span class="stat-value">Prompt + Keyboard + Mouse</span>
         </div>
       </div>
     </header>
@@ -143,20 +143,34 @@
             <h3>Key Contributions</h3>
             <div class="contrib-list">
               <div class="contrib-item">
-                <h4>Instruction-Driven Interaction</h4>
-                <p>Multi-modal control channels spanning language, keyboard, and mouse signals for direct semantic mapping to in-game behaviors.</p>
+                <h4>Unified instruction-driven control</h4>
+                <p>
+                  We introduce a unified controllable video framework that jointly conditions on free-form text prompts, keyboard inputs,
+                  and mouse signals, enabling semantically grounded and causally consistent interaction in game-style environments.
+                </p>
               </div>
               <div class="contrib-item">
-                <h4>Interactive Video Data</h4>
-                <p>Automated pipeline that extracts causally aligned interaction segments from large-scale text–video pairs, reducing annotation cost.</p>
+                <h4>Scalable interactive video data pipeline</h4>
+                <p>
+                  We formalize interaction in world models and design automated pipelines that transform large-scale, unstructured text–video
+                  pairs into open-domain interactive video datasets with implicit causal labels.
+                </p>
               </div>
               <div class="contrib-item">
-                <h4>Fine-Grained Control</h4>
-                <p>Interaction injection module on top of a 14B MoE video generator to separately control camera motion, character actions, and environment dynamics.</p>
+                <h4>Efficient long-horizon interactive generation</h4>
+                <p>
+                  We distill a bidirectional video generator into a causal autoregressive model, combine randomized image-to-long-video tuning
+                  with KV-recache for multi-turn interaction, and integrate engineering optimizations to achieve stable long-horizon generation
+                  at real-time 16 FPS.
+                </p>
               </div>
               <div class="contrib-item">
-                <h4>InterBench Benchmark</h4>
-                <p>Dedicated benchmark covering action consistency, response latency, scene comprehension, and causal alignment.</p>
+                <h4>Comprehensive evaluation and SOTA results</h4>
+                <p>
+                  Extensive quantitative and qualitative experiments on both general video metrics and interaction-centric evaluations show
+                  that our framework sets a new state of the art in generating visually high-quality, temporally coherent videos that reliably
+                  follow user instructions.
+                </p>
               </div>
             </div>
           </article>
