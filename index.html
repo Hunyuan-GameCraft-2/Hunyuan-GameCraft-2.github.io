@@ -19,7 +19,7 @@
         <p class="eyebrow">Generative Interactive Game World Modeling</p>
         <h1>Hunyuan-GameCraft-2</h1>
         <p class="subtitle">
-          Instruction-driven interactive video generation where Text-Prompt, keyboard, and mouse jointly steer synthetic worlds.
+          Instruction-following Interactive Game World Model
         </p>
         <div class="cta-group">
           <a class="btn primary" href="#abstract">Paper</a>
@@ -65,7 +65,7 @@
     <main>
       <section id="teaser" class="section light teaser-section">
         <div class="section__header">
-          <p class="eyebrow">Teaser</p>
+          <p class="eyebrow">Playground</p>
           <h2>Instruction-to-Action Playground</h2>
           <p class="teaser-desc">
             Tap any scenario capsule to swap the teaser playback. Each button represents a different interaction rendered by
@@ -146,7 +146,6 @@
       <section id="abstract" class="section">
         <div class="section__header">
           <p class="eyebrow">Abstract</p>
-          <h2>Abstract & Key Contributions</h2>
         </div>
         <div class="abstract-layout">
           <article class="abstract-card">
@@ -163,41 +162,6 @@
             <p>
               Extensive experiments demonstrate that our model generates long-horizon, temporally coherent, and causally grounded interactive game videos that faithfully respond to diverse user instructions such as “open the door,” “draw a torch,” or “trigger an explosion.”
             </p>
-          </article>
-          <article class="contrib-card">
-            <h3>Key Contributions</h3>
-            <div class="contrib-list">
-              <div class="contrib-item">
-                <h4>Unified instruction-driven control</h4>
-                <p>
-                  We introduce a unified controllable video framework that jointly conditions on free-form text prompts, keyboard inputs,
-                  and mouse signals, enabling semantically grounded and causally consistent interaction in game-style environments.
-                </p>
-              </div>
-              <div class="contrib-item">
-                <h4>Scalable interactive video data pipeline</h4>
-                <p>
-                  We formalize interaction in world models and design automated pipelines that transform large-scale, unstructured text–video
-                  pairs into open-domain interactive video datasets with implicit causal labels.
-                </p>
-              </div>
-              <div class="contrib-item">
-                <h4>Efficient long-horizon interactive generation</h4>
-                <p>
-                  We distill a bidirectional video generator into a causal autoregressive model, combine randomized image-to-long-video tuning
-                  with KV-recache for multi-turn interaction, and integrate engineering optimizations to achieve stable long-horizon generation
-                  at real-time 16 FPS.
-                </p>
-              </div>
-              <div class="contrib-item">
-                <h4>Comprehensive evaluation and SOTA results</h4>
-                <p>
-                  Extensive quantitative and qualitative experiments on both general video metrics and interaction-centric evaluations show
-                  that our framework sets a new state of the art in generating visually high-quality, temporally coherent videos that reliably
-                  follow user instructions.
-                </p>
-              </div>
-            </div>
           </article>
         </div>
       </section>
