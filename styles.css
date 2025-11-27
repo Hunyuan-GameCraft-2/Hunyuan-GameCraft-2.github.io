@@ -389,7 +389,7 @@ h3 {
 
 .longvideo-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -684,7 +684,7 @@ h3 {
 
 @media (max-width: 1200px) {
   .longvideo-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .samples-grid {
