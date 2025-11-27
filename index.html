@@ -178,15 +178,31 @@
       </section>
 
 
-      <!--
-      <section class="section video-gallery" id="gallery">
+      <section id="longvideo" class="section section-longvideo">
         <div class="section__header">
-          <p class="eyebrow">Gallery</p>
-          <h2>Action Video Gallery</h2>
+          <p class="eyebrow">@longvideo</p>
+          <h2>Long Video Generation Gallery</h2>
+          <p class="gallery-desc">
+            Continuous long-horizon generations streamed from different prompts. Tap any prompt capsule to jump around the sequence or
+            let it autoplay to see how text updates keep extending the same timeline.
+          </p>
         </div>
-        <div id="videoGalleryRoot" class="video-gallery__root"></div>
+        <div class="longvideo-layout">
+          <div class="longvideo-stage">
+            <div class="longvideo-stage__badge">Now Streaming</div>
+            <video id="longVideoPlayer" class="longvideo-stage__player" controls playsinline preload="metadata" poster="asserts/images/teaser.png">
+              <source src="asserts/videos/longvideo/c6851c79a425f9d79f4704c37cbdb230.mov" type="video/quicktime" />
+              Your browser does not support the video tag.
+            </video>
+            <div class="longvideo-stage__prompt">
+              <div class="longvideo-stage__prompt-label">Active prompt</div>
+              <h3 id="longVideoTitle"></h3>
+              <p id="longVideoPrompt"></p>
+            </div>
+          </div>
+          <div id="longVideoPlaylist" class="longvideo-playlist" aria-live="polite"></div>
+        </div>
       </section>
-      -->
 
     </main>
 
@@ -217,6 +233,121 @@
       teaserButtons.forEach((button) => {
         button.addEventListener("click", () => setTeaserSource(button));
       });
+
+      const longVideoData = [
+        {
+          id: "prompt-ice-breaker",
+          title: "Arcade Siege in a Frozen City",
+          prompt: "“Continue the battle as the mech charges through snowstorm streets, dodging collapsing towers while neon HUD text narrates mission updates.”",
+          duration: "02:48",
+          src: "asserts/videos/longvideo/c6851c79a425f9d79f4704c37cbdb230.mov",
+        },
+        {
+          id: "prompt-cyber-rush",
+          title: "Cyberpunk Alley Sprint",
+          prompt: "“Pan with the runner as the prompt switches to ‘dash through flickering holo-ads, summon a drone escort, then vault into the traffic layer.’”",
+          duration: "01:57",
+          src: "asserts/videos/longvideo/95e5cbe99e6b49f44de257d30c411510.mov",
+        },
+        {
+          id: "prompt-dungeon",
+          title: "Torchlight Dungeon Expedition",
+          prompt: "“Keep the same characters but steer the prose to ‘descend deeper, manifest spectral knights, and rebuild the bridge mid-combat.’”",
+          duration: "03:12",
+          src: "asserts/videos/longvideo/5a1bbb4acaf9b01626b25f9eddc31642.mov",
+        },
+        {
+          id: "prompt-metropolis",
+          title: "Skyrail Metropolis Chase",
+          prompt: "“Extend the take with ‘reroute the chase to rooftops, add volumetric rain, and switch to an over-shoulder drone cam.’”",
+          duration: "04:05",
+          src: "asserts/videos/longvideo/f12706c7eb81aa465308b1a683b20f4e.mov",
+        },
+        {
+          id: "prompt-lab",
+          title: "Holographic Lab Build",
+          prompt: "“Stream the scene as ‘spawn a fabrication rig, extrude glowing armor plates, then orbit around the finished suit.’”",
+          duration: "00:54",
+          src: "asserts/videos/longvideo/0a03ad7fe63951633cd61c44452d9bb7.mov",
+        },
+        {
+          id: "prompt-ruins",
+          title: "Ancient Ruins Standoff",
+          prompt: "“Continue with ‘raise sand cyclones, reveal hidden glyph projectors, then follow the protagonist as they exit into sunrise.’”",
+          duration: "02:31",
+          src: "asserts/videos/longvideo/baa0feccae276bd421c461cc1f5188a6.mov",
+        },
+      ];
+
+      const longVideoPlayer = document.getElementById("longVideoPlayer");
+      const longVideoTitle = document.getElementById("longVideoTitle");
+      const longVideoPrompt = document.getElementById("longVideoPrompt");
+      const longVideoPlaylist = document.getElementById("longVideoPlaylist");
+
+      if (longVideoPlayer && longVideoPlaylist && longVideoTitle && longVideoPrompt) {
+        let activeIndex = 0;
+
+        function renderPlaylist() {
+          longVideoPlaylist.innerHTML = "";
+          longVideoData.forEach((item, index) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "longvideo-prompt-card";
+            button.dataset.index = index;
+            button.innerHTML = `
+              <span class="longvideo-prompt-card__index">0${index + 1}</span>
+              <div class="longvideo-prompt-card__body">
+                <div class="longvideo-prompt-card__meta">
+                  <span class="longvideo-prompt-card__title">${item.title}</span>
+                  <span class="longvideo-prompt-card__duration">${item.duration}</span>
+                </div>
+                <p>${item.prompt}</p>
+                <span class="longvideo-prompt-card__status" aria-hidden="true">Queued</span>
+              </div>
+            `;
+            button.addEventListener("click", () => setActiveIndex(index, { autoplay: true }));
+            longVideoPlaylist.appendChild(button);
+          });
+        }
+
+        function updateStageContent(item) {
+          longVideoTitle.textContent = item.title;
+          longVideoPrompt.textContent = item.prompt;
+        }
+
+        function highlightActiveCard(index) {
+          const cards = longVideoPlaylist.querySelectorAll(".longvideo-prompt-card");
+          cards.forEach((card, cardIndex) => {
+            card.classList.toggle("is-active", cardIndex === index);
+            const status = card.querySelector(".longvideo-prompt-card__status");
+            if (status) {
+              status.textContent = cardIndex === index ? "Streaming" : "Queued";
+            }
+          });
+        }
+
+        function setActiveIndex(index, { autoplay } = { autoplay: false }) {
+          const item = longVideoData[index];
+          if (!item) return;
+          activeIndex = index;
+          longVideoPlayer.pause();
+          longVideoPlayer.src = item.src;
+          updateStageContent(item);
+          highlightActiveCard(index);
+          longVideoPlayer.load();
+          if (autoplay) {
+            longVideoPlayer.play().catch(() => {});
+          }
+        }
+
+        longVideoPlayer.addEventListener("ended", () => {
+          const nextIndex = (activeIndex + 1) % longVideoData.length;
+          setActiveIndex(nextIndex, { autoplay: true });
+        });
+
+        renderPlaylist();
+        setActiveIndex(0, { autoplay: false });
+      }
 
       /*
       const videoGalleryRoot = document.getElementById("videoGalleryRoot");
