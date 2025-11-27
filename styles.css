@@ -49,16 +49,18 @@ img {
   flex: 1 1 420px;
 }
 
-.hero__authors {
+.hero__side {
   flex: 1 1 360px;
   display: flex;
-  align-items: stretch;
+  flex-direction: column;
+  gap: 18px;
   min-width: 320px;
 }
 
 @media (max-width: 900px) {
-  .hero__authors {
+  .hero__side {
     order: 3;
+    width: 100%;
   }
 }
 
@@ -148,21 +150,31 @@ h3 {
 }
 
 .authors-card {
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: clamp(20px, 5vw, 36px);
-  background: linear-gradient(145deg, rgba(8, 10, 18, 0.78), rgba(6, 8, 14, 0.6));
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
   position: relative;
+  border-radius: 28px;
+  padding: clamp(24px, 5vw, 40px);
+  background: rgba(6, 8, 15, 0.65);
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
   overflow: hidden;
 }
 
-.authors-card::after {
+.authors-card::before {
   content: "";
   position: absolute;
-  inset: 1px;
-  border-radius: 22px;
-  border: 1px solid rgba(124, 224, 249, 0.18);
+  inset: 0;
+  border-radius: 28px;
+  padding: 1px;
+  background: linear-gradient(120deg, rgba(83, 179, 255, 0.9), rgba(180, 91, 255, 0.6), rgba(255, 124, 194, 0.7));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
   pointer-events: none;
 }
 
@@ -178,18 +190,19 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .authors-pill {
   padding: 8px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.02);
-  font-size: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.93rem;
   font-weight: 500;
   color: var(--text);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .authors-pill sup {
@@ -198,7 +211,7 @@ h3 {
 }
 
 .authors-affiliation {
-  margin: 14px 0 0;
+  margin: 18px 0 0;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -206,9 +219,10 @@ h3 {
 }
 
 .authors-notes {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   color: var(--muted);
   font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .section__header {
