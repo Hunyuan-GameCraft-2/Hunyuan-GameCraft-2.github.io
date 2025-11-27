@@ -64,31 +64,32 @@ img {
   }
 }
 
-.hero__stats {
-  flex: 1 1 280px;
+.hero-meta {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin: 24px 0 0;
+  padding: 0;
+  gap: 12px;
 }
 
-.stat-card {
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 8px 20px;
-  background: rgba(5, 6, 10, 0.65);
-  backdrop-filter: blur(8px);
+.hero-meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.stat-label {
+.hero-meta dt {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--muted);
-  font-size: 0.8rem;
 }
 
-.stat-value {
-  display: block;
-  font-size: 1rem;
+.hero-meta dd {
+  margin: 0;
+  font-size: 1.05rem;
   font-weight: 600;
-  margin-top: 2px;
 }
 
 h1 {
