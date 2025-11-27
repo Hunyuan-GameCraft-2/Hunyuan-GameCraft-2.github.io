@@ -40,7 +40,7 @@ body {
     var(--bg);
   color: var(--text);
   min-height: 100vh;
-  font-style: italic;
+  /* font-style: italic; */
 }
 
 h1,
