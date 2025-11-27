@@ -49,7 +49,14 @@
         </div>
         <div class="teaser-ring" aria-live="polite">
           <div class="teaser-stage">
-            <video id="teaserVideo" class="teaser-video" controls playsinline preload="metadata">
+            <video
+              id="teaserVideo"
+              class="teaser-video"
+              controls
+              playsinline
+              poster="asserts/images/teaser.png"
+              preload="metadata"
+            >
               <source src="asserts/videos/teaser/snowfall.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
@@ -175,6 +182,10 @@
         <div class="section__header">
           <p class="eyebrow">@longvideo</p>
           <h2>Long Video Generation Gallery</h2>
+          <p class="gallery-desc">
+            Three concurrent streams rotate through long-horizon instruction-following clips. Each card highlights the base setup plus the
+            interaction prompts that keep extending the same timeline so you can read the narrative cues while the footage plays.
+          </p>
         </div>
         <div id="longVideoGrid" class="longvideo-grid" aria-live="polite"></div>
       </section>
@@ -212,59 +223,61 @@
       const longVideoData = [
         {
           id: "gta-city-sedan",
-          title: "GTA5 · 城市漫步",
+          title: "GTA5 · City Street Walk",
           prompts: [
-            "场景：一个男人在城市道路上行走。",
-            "互动1：生成一辆黑色小轿车驶入镜头。",
-            "互动2：天空开始下雪，雪花覆盖街道。",
+            "Setup: Third-person GTA5-style camera follows a lone man strolling down a neon-soaked boulevard.",
+            "Interaction 1: Prompt injects a black sedan that merges into the lane and matches his pace.",
+            "Interaction 2: Follow-up instruction turns the clear sky into dense snowfall that blankets the asphalt in real time.",
           ],
           src: "asserts/videos/longvideo/c6851c79a425f9d79f4704c37cbdb230.mov",
         },
         {
           id: "heroic-storm-dragon",
-          title: "3A · 风暴与巨龙",
+          title: "AAA Setpiece · Lightning vs. Dragon",
           prompts: [
-            "场景：3A游戏质感的战斗视角。",
-            "互动1：电闪雷鸣，雷电在场景中劈落。",
-            "互动2：一头巨龙冲破天空加入画面。",
+            "Setup: A high-fidelity action shot frames an armored hero sprinting across a ruined plaza.",
+            "Interaction 1: The first prompt summons continuous lightning strikes and rolling thunder around the character.",
+            "Interaction 2: The next prompt materializes a colossal dragon that bursts through the storm clouds toward the lens.",
           ],
           src: "asserts/videos/longvideo/95e5cbe99e6b49f44de257d30c411510.mov",
         },
         {
           id: "gta-rain-suv",
-          title: "GTA5 · 雨夜行者",
+          title: "GTA5 · Rain-Soaked Pursuit",
           prompts: [
-            "场景：一个男人在雨夜的城市道路上行走。",
-            "互动1：提示生成一辆SUV靠近主角。",
-            "互动2：再次下起大雪，雨雪交替覆盖街道。",
+            "Setup: Camera tracks a man walking through a rain-lashed downtown street at night.",
+            "Interaction 1: Prompt requests an SUV to enter the scene, pulling up beside the character.",
+            "Interaction 2: Another instruction overlays heavy snowfall on top of the rain, creating mixed precipitation as he continues.",
           ],
           src: "asserts/videos/longvideo/5a1bbb4acaf9b01626b25f9eddc31642.mov",
         },
         {
           id: "gta-autumn-walk",
-          title: "GTA5 · 秋叶大道",
+          title: "GTA5 · Autumn Parkway Drift",
           prompts: [
-            "场景：秋天落叶铺满道路，镜头跟随主角行走。",
-            "互动：保持行进，突出季节氛围与光影变化。",
+            "Setup: Golden-hour GTA sequence where a lone pedestrian follows a leaf-covered avenue.",
+            "Interaction 1: Prompt amplifies the wind so crimson leaves swirl around the subject and camera.",
+            "Interaction 2: Final cue shifts the shot into an over-the-shoulder glide, emphasizing long-horizon continuity.",
           ],
           src: "asserts/videos/longvideo/f12706c7eb81aa465308b1a683b20f4e.mov",
         },
         {
           id: "minecraft-path",
-          title: "Minecraft · 相机轨迹",
+          title: "Minecraft · Camera Path Study",
           prompts: [
-            "场景：体素世界视角，Minecraft风格。",
-            "相机轨迹：向前 → 向左 → 向右 → 再向前穿梭。",
+            "Setup: Voxel world rendered in stylized Minecraft lighting with a floating camera rig.",
+            "Interaction 1: Command nudges the camera straight forward, then sweeps left to reveal a new biome.",
+            "Interaction 2: Subsequent prompts arc the camera right and then forward again, completing the front → left → right → front traversal.",
           ],
           src: "asserts/videos/longvideo/0a03ad7fe63951633cd61c44452d9bb7.mov",
         },
         {
           id: "door-torch-fpv",
-          title: "第一人称 · 开门点火把",
+          title: "First-Person · Door and Torch Quest",
           prompts: [
-            "场景：第一人称面对一扇紧闭的门。",
-            "互动1：打开门并进入房间。",
-            "互动2：点亮火把照亮室内空间。",
+            "Setup: First-person view stares at a sealed wooden door inside a dim corridor.",
+            "Interaction 1: Instruction opens the door and pushes the viewer into the adjoining room.",
+            "Interaction 2: A final prompt summons a handheld torch that ignites and bathes the interior with warm light.",
           ],
           src: "asserts/videos/longvideo/baa0feccae276bd421c461cc1f5188a6.mov",
         },
