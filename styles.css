@@ -65,31 +65,48 @@ img {
 }
 
 .hero-meta {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  margin: 24px 0 0;
-  padding: 0;
-  gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 32px;
+  margin: 28px 0 0;
+  padding: 28px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .hero-meta div {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  min-width: 220px;
+  position: relative;
+  padding-left: 18px;
+}
+
+.hero-meta div::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(124, 224, 249, 0.65);
 }
 
 .hero-meta dt {
   margin: 0;
-  font-size: 0.85rem;
-  letter-spacing: 0.2em;
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
 .hero-meta dd {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 600;
+  color: var(--text);
 }
 
 h1 {
