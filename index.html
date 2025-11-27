@@ -182,26 +182,8 @@
         <div class="section__header">
           <p class="eyebrow">@longvideo</p>
           <h2>Long Video Generation Gallery</h2>
-          <p class="gallery-desc">
-            Continuous long-horizon generations streamed from different prompts. Tap any prompt capsule to jump around the sequence or
-            let it autoplay to see how text updates keep extending the same timeline.
-          </p>
         </div>
-        <div class="longvideo-layout">
-          <div class="longvideo-stage">
-            <div class="longvideo-stage__badge">Now Streaming</div>
-            <video id="longVideoPlayer" class="longvideo-stage__player" controls playsinline preload="metadata" poster="asserts/images/teaser.png">
-              <source src="asserts/videos/longvideo/c6851c79a425f9d79f4704c37cbdb230.mov" type="video/quicktime" />
-              Your browser does not support the video tag.
-            </video>
-            <div class="longvideo-stage__prompt">
-              <div class="longvideo-stage__prompt-label">Active prompt</div>
-              <h3 id="longVideoTitle"></h3>
-              <p id="longVideoPrompt"></p>
-            </div>
-          </div>
-          <div id="longVideoPlaylist" class="longvideo-playlist" aria-live="polite"></div>
-        </div>
+        <div id="longVideoGrid" class="longvideo-grid" aria-live="polite"></div>
       </section>
 
     </main>
@@ -279,74 +261,61 @@
         },
       ];
 
-      const longVideoPlayer = document.getElementById("longVideoPlayer");
-      const longVideoTitle = document.getElementById("longVideoTitle");
-      const longVideoPrompt = document.getElementById("longVideoPrompt");
-      const longVideoPlaylist = document.getElementById("longVideoPlaylist");
+      const longVideoGrid = document.getElementById("longVideoGrid");
+      const LONG_VIDEO_VISIBLE_COUNT = 3;
+      let longVideoPointer = 0;
+      let longVideoInstance = 0;
 
-      if (longVideoPlayer && longVideoPlaylist && longVideoTitle && longVideoPrompt) {
-        let activeIndex = 0;
+      if (longVideoGrid) {
+        renderLongVideoGrid();
+      }
 
-        function renderPlaylist() {
-          longVideoPlaylist.innerHTML = "";
-          longVideoData.forEach((item, index) => {
-            const button = document.createElement("button");
-            button.type = "button";
-            button.className = "longvideo-prompt-card";
-            button.dataset.index = index;
-            button.innerHTML = `
-              <span class="longvideo-prompt-card__index">0${index + 1}</span>
-              <div class="longvideo-prompt-card__body">
-                <div class="longvideo-prompt-card__meta">
-                  <span class="longvideo-prompt-card__title">${item.title}</span>
-                  <span class="longvideo-prompt-card__duration">${item.duration}</span>
-                </div>
-                <p>${item.prompt}</p>
-                <span class="longvideo-prompt-card__status" aria-hidden="true">Queued</span>
-              </div>
-            `;
-            button.addEventListener("click", () => setActiveIndex(index, { autoplay: true }));
-            longVideoPlaylist.appendChild(button);
+      function renderLongVideoGrid() {
+        if (!longVideoGrid) return;
+        longVideoInstance += 1;
+        const instanceId = longVideoInstance;
+        longVideoGrid.innerHTML = "";
+
+        const visibleCount = Math.min(LONG_VIDEO_VISIBLE_COUNT, longVideoData.length);
+        let completed = 0;
+
+        for (let i = 0; i < visibleCount; i += 1) {
+          const item = longVideoData[(longVideoPointer + i) % longVideoData.length];
+          if (!item) continue;
+
+          const card = document.createElement("div");
+          card.className = "longvideo-card";
+
+          const video = document.createElement("video");
+          video.controls = true;
+          video.playsInline = true;
+          video.preload = "metadata";
+          video.src = item.src;
+          video.autoplay = true;
+          video.muted = true;
+          video.addEventListener("loadeddata", () => {
+            video.play().catch(() => {});
           });
+          video.addEventListener(
+            "ended",
+            () => {
+              if (longVideoInstance !== instanceId) return;
+              completed += 1;
+              if (completed >= visibleCount) {
+                rotateLongVideoSet(visibleCount);
+              }
+            },
+            { once: true }
+          );
+
+          card.appendChild(video);
+          longVideoGrid.appendChild(card);
         }
+      }
 
-        function updateStageContent(item) {
-          longVideoTitle.textContent = item.title;
-          longVideoPrompt.textContent = item.prompt;
-        }
-
-        function highlightActiveCard(index) {
-          const cards = longVideoPlaylist.querySelectorAll(".longvideo-prompt-card");
-          cards.forEach((card, cardIndex) => {
-            card.classList.toggle("is-active", cardIndex === index);
-            const status = card.querySelector(".longvideo-prompt-card__status");
-            if (status) {
-              status.textContent = cardIndex === index ? "Streaming" : "Queued";
-            }
-          });
-        }
-
-        function setActiveIndex(index, { autoplay } = { autoplay: false }) {
-          const item = longVideoData[index];
-          if (!item) return;
-          activeIndex = index;
-          longVideoPlayer.pause();
-          longVideoPlayer.src = item.src;
-          updateStageContent(item);
-          highlightActiveCard(index);
-          longVideoPlayer.load();
-          if (autoplay) {
-            longVideoPlayer.play().catch(() => {});
-          }
-        }
-
-        longVideoPlayer.addEventListener("ended", () => {
-          const nextIndex = (activeIndex + 1) % longVideoData.length;
-          setActiveIndex(nextIndex, { autoplay: true });
-        });
-
-        renderPlaylist();
-        setActiveIndex(0, { autoplay: false });
+      function rotateLongVideoSet(step) {
+        longVideoPointer = (longVideoPointer + step) % longVideoData.length;
+        renderLongVideoGrid();
       }
 
       /*
