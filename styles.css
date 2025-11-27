@@ -267,6 +267,26 @@ h3 {
   background: #000;
 }
 
+.longvideo-card__info {
+  margin-top: 14px;
+}
+
+.longvideo-card__info h4 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.longvideo-card__prompts {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.longvideo-card__prompts li + li {
+  margin-top: 4px;
+}
+
 .teaser-ring {
   position: relative;
   margin: 76px auto 0;

@@ -218,45 +218,61 @@
 
       const longVideoData = [
         {
-          id: "prompt-ice-breaker",
-          title: "Arcade Siege in a Frozen City",
-          prompt: "“Continue the battle as the mech charges through snowstorm streets, dodging collapsing towers while neon HUD text narrates mission updates.”",
-          duration: "02:48",
+          id: "gta-city-sedan",
+          title: "GTA5 · 城市漫步",
+          prompts: [
+            "场景：一个男人在城市道路上行走。",
+            "互动1：生成一辆黑色小轿车驶入镜头。",
+            "互动2：天空开始下雪，雪花覆盖街道。",
+          ],
           src: "asserts/videos/longvideo/c6851c79a425f9d79f4704c37cbdb230.mov",
         },
         {
-          id: "prompt-cyber-rush",
-          title: "Cyberpunk Alley Sprint",
-          prompt: "“Pan with the runner as the prompt switches to ‘dash through flickering holo-ads, summon a drone escort, then vault into the traffic layer.’”",
-          duration: "01:57",
+          id: "heroic-storm-dragon",
+          title: "3A · 风暴与巨龙",
+          prompts: [
+            "场景：3A游戏质感的战斗视角。",
+            "互动1：电闪雷鸣，雷电在场景中劈落。",
+            "互动2：一头巨龙冲破天空加入画面。",
+          ],
           src: "asserts/videos/longvideo/95e5cbe99e6b49f44de257d30c411510.mov",
         },
         {
-          id: "prompt-dungeon",
-          title: "Torchlight Dungeon Expedition",
-          prompt: "“Keep the same characters but steer the prose to ‘descend deeper, manifest spectral knights, and rebuild the bridge mid-combat.’”",
-          duration: "03:12",
+          id: "gta-rain-suv",
+          title: "GTA5 · 雨夜行者",
+          prompts: [
+            "场景：一个男人在雨夜的城市道路上行走。",
+            "互动1：提示生成一辆SUV靠近主角。",
+            "互动2：再次下起大雪，雨雪交替覆盖街道。",
+          ],
           src: "asserts/videos/longvideo/5a1bbb4acaf9b01626b25f9eddc31642.mov",
         },
         {
-          id: "prompt-metropolis",
-          title: "Skyrail Metropolis Chase",
-          prompt: "“Extend the take with ‘reroute the chase to rooftops, add volumetric rain, and switch to an over-shoulder drone cam.’”",
-          duration: "04:05",
+          id: "gta-autumn-walk",
+          title: "GTA5 · 秋叶大道",
+          prompts: [
+            "场景：秋天落叶铺满道路，镜头跟随主角行走。",
+            "互动：保持行进，突出季节氛围与光影变化。",
+          ],
           src: "asserts/videos/longvideo/f12706c7eb81aa465308b1a683b20f4e.mov",
         },
         {
-          id: "prompt-lab",
-          title: "Holographic Lab Build",
-          prompt: "“Stream the scene as ‘spawn a fabrication rig, extrude glowing armor plates, then orbit around the finished suit.’”",
-          duration: "00:54",
+          id: "minecraft-path",
+          title: "Minecraft · 相机轨迹",
+          prompts: [
+            "场景：体素世界视角，Minecraft风格。",
+            "相机轨迹：向前 → 向左 → 向右 → 再向前穿梭。",
+          ],
           src: "asserts/videos/longvideo/0a03ad7fe63951633cd61c44452d9bb7.mov",
         },
         {
-          id: "prompt-ruins",
-          title: "Ancient Ruins Standoff",
-          prompt: "“Continue with ‘raise sand cyclones, reveal hidden glyph projectors, then follow the protagonist as they exit into sunrise.’”",
-          duration: "02:31",
+          id: "door-torch-fpv",
+          title: "第一人称 · 开门点火把",
+          prompts: [
+            "场景：第一人称面对一扇紧闭的门。",
+            "互动1：打开门并进入房间。",
+            "互动2：点亮火把照亮室内空间。",
+          ],
           src: "asserts/videos/longvideo/baa0feccae276bd421c461cc1f5188a6.mov",
         },
       ];
@@ -309,6 +325,26 @@
           );
 
           card.appendChild(video);
+          if (item.prompts && item.prompts.length) {
+            const info = document.createElement("div");
+            info.className = "longvideo-card__info";
+
+            const title = document.createElement("h4");
+            title.textContent = item.title;
+            info.appendChild(title);
+
+            const list = document.createElement("ul");
+            list.className = "longvideo-card__prompts";
+            item.prompts.forEach((promptLine) => {
+              const li = document.createElement("li");
+              li.textContent = promptLine;
+              list.appendChild(li);
+            });
+            info.appendChild(list);
+
+            card.appendChild(info);
+          }
+
           longVideoGrid.appendChild(card);
         }
       }
