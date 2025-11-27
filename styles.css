@@ -81,42 +81,35 @@ img {
 .hero-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  margin: 28px 0 0;
-  padding-top: 18px;
+  gap: 20px;
+  margin: 32px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .hero-meta__item {
+  min-width: 220px;
+  padding: 16px 22px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 6, 10, 0.6);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
   gap: 6px;
-  min-width: 220px;
 }
 
 .hero-meta__tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--text);
+  color: var(--muted);
 }
 
 .hero-meta__value {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 18px;
-  border-radius: 999px;
-  background: rgba(124, 224, 249, 0.18);
-  border: 1px solid rgba(124, 224, 249, 0.4);
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--text);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
 }
 
 h1 {
@@ -422,6 +415,38 @@ h3 {
   margin-top: 4px;
 }
 
+.section-samples {
+  background: var(--surface-light);
+}
+
+.samples-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.sample-card {
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 16px;
+  background: rgba(6, 8, 15, 0.65);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+}
+
+.sample-card video {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #000;
+  aspect-ratio: 16 / 9;
+}
+
+.sample-card__label {
+  margin: 10px 4px 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
 .teaser-ring {
   position: relative;
   margin: 76px auto 0;
@@ -647,10 +672,18 @@ h3 {
   .longvideo-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .samples-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 900px) {
   .longvideo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .samples-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -711,6 +744,10 @@ h3 {
 
   .longvideo-card__info {
     margin-top: 10px;
+  }
+
+  .samples-grid {
+    grid-template-columns: 1fr;
   }
 
 }
