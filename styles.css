@@ -49,6 +49,18 @@ img {
   flex: 1 1 420px;
 }
 
+.hero__authors {
+  flex: 1 1 360px;
+  display: flex;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .hero__authors {
+    order: 3;
+  }
+}
+
 .hero__stats {
   flex: 1 1 280px;
   display: grid;
@@ -132,10 +144,6 @@ h3 {
 
 .section.light {
   background: var(--surface-light);
-}
-
-.section-authors {
-  background: radial-gradient(circle at top, rgba(255, 196, 124, 0.08), transparent), var(--surface);
 }
 
 .authors-card {
