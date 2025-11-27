@@ -24,16 +24,16 @@
           <a class="btn primary" href="#abstract">Paper</a>
           <a class="btn secondary" href="#gallery">Video Gallery</a>
         </div>
-        <dl class="hero-meta">
-          <div>
-            <dt>Data Type</dt>
-            <dd>Interactive Video</dd>
+        <div class="hero-meta">
+          <div class="hero-meta__item">
+            <span class="hero-meta__tag">Data Type</span>
+            <span class="hero-meta__value">Interactive Video</span>
           </div>
-          <div>
-            <dt>Control Signals</dt>
-            <dd>Prompt + Keyboard + Mouse</dd>
+          <div class="hero-meta__item">
+            <span class="hero-meta__tag">Control Signals</span>
+            <span class="hero-meta__value">Prompt + Keyboard + Mouse</span>
           </div>
-        </dl>
+        </div>
       </div>
       <div class="hero__side">
         <div class="authors-card">
@@ -52,7 +52,10 @@
           </div>
           <p class="authors-affiliation">Tencent Hunyuan</p>
           <p class="authors-notes">
-            <sup>1</sup>Marks equal contribution · <sup>2</sup>Project co-leads · <sup>3</sup>Corresponding author
+            <sup>1</sup>Equal contribution · <sup>2</sup>Work completed during internship at Tencent Hunyuan · <sup>3</sup>Corresponding author
+          </p>
+          <p class="authors-recruit">
+            We are looking for self-motivated interns focused on building game world models. Contact: <a href="mailto:juliatang@tencent.com">juliatang@tencent.com</a>.
           </p>
         </div>
       </div>
@@ -305,7 +308,7 @@
       ];
 
       const longVideoGrid = document.getElementById("longVideoGrid");
-      const LONG_VIDEO_VISIBLE_COUNT = 3;
+      const LONG_VIDEO_VISIBLE_COUNT = 5;
       let longVideoPointer = 0;
       let longVideoInstance = 0;
 
