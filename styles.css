@@ -685,6 +685,16 @@ h3 {
   background: var(--surface-light);
 }
 
+.citation-section .section__header {
+  text-align: center;
+}
+
+.citation-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .citation-code {
   margin: 0;
   padding: 24px 28px;
@@ -702,6 +712,42 @@ h3 {
   display: block;
   white-space: pre;
   color: inherit;
+}
+
+.citation-copy-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(8, 10, 18, 0.8);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.citation-copy-btn:hover,
+.citation-copy-btn:focus-visible {
+  background: rgba(124, 224, 249, 0.15);
+  border-color: var(--accent);
+  outline: none;
+}
+
+.citation-copy-btn.is-copied {
+  background: rgba(124, 224, 249, 0.2);
+  border-color: var(--accent);
+}
+
+.citation-copy-btn__check {
+  display: none;
+  color: var(--accent);
 }
 
 .footer {
