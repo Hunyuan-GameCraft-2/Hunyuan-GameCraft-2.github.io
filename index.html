@@ -185,7 +185,8 @@
         <p class="eyebrow">Citation</p>
         <h2>BibTeX</h2>
       </div>
-      <pre class="citation-code"><code>@misc{tang2025hunyuangamecraft2instructionfollowinginteractivegame,
+      <div class="citation-wrapper">
+        <pre class="citation-code" id="citationCode"><code>@misc{tang2025hunyuangamecraft2instructionfollowinginteractivegame,
     title={Hunyuan-GameCraft-2: Instruction-following Interactive Game World Model}, 
     author={Junshu Tang and Jiacheng Liu and Jiaqi Li and Longhuang Wu and Haoyu Yang and Penghao Zhao and Siruis Gong and Xiang Yuan and Shuai Shao and Qinglin Lu},
     year={2025},
@@ -194,6 +195,11 @@
     primaryClass={cs.CV},
     url={https://arxiv.org/abs/2511.23429}, 
 }</code></pre>
+        <button class="citation-copy-btn" id="citationCopyBtn" type="button" aria-label="Copy citation">
+          <span class="citation-copy-btn__text">Copy</span>
+          <span class="citation-copy-btn__check" aria-hidden="true">✓</span>
+        </button>
+      </div>
     </section>
 
     <footer class="footer">
@@ -673,6 +679,30 @@
 
       mountVideoGallery();
       */
+
+      const citationCopyBtn = document.getElementById("citationCopyBtn");
+      const citationCode = document.getElementById("citationCode");
+      const copyText = citationCopyBtn.querySelector(".citation-copy-btn__text");
+      const copyCheck = citationCopyBtn.querySelector(".citation-copy-btn__check");
+
+      if (citationCopyBtn && citationCode) {
+        citationCopyBtn.addEventListener("click", async () => {
+          const codeText = citationCode.textContent || citationCode.innerText;
+          try {
+            await navigator.clipboard.writeText(codeText);
+            citationCopyBtn.classList.add("is-copied");
+            copyText.style.display = "none";
+            copyCheck.style.display = "inline";
+            setTimeout(() => {
+              citationCopyBtn.classList.remove("is-copied");
+              copyText.style.display = "inline";
+              copyCheck.style.display = "none";
+            }, 2000);
+          } catch (err) {
+            console.error("Failed to copy:", err);
+          }
+        });
+      }
     </script>
   </body>
 </html>
